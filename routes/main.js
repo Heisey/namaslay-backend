@@ -35,19 +35,15 @@ module.exports = (db) => {
 
   });
 
-
-  router.get("/:month_id", (req, res) => {
-    const id = req.params.month_id
-    const responseAry = []
-    db.query(selectAllClassesByMonth, [id])
-      .then((data) => {
-      })
-    db.query(selectAllDaysofMonth, [id])
-      // db.query(selectAllClassesByDay, [id])
-      .then((data) => {
-
-        res.send(data.rows);
-      })
+  router.get("/:month_id", async (req, res) => {
+    try {
+      const id = req.params.month_id
+      const response = await db.query(selectAllClassesByMonth, [id])
+      res.send(response.rows)
+    }
+    catch (error) {
+      throw error
+    }
   });
 
 
