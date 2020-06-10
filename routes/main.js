@@ -13,8 +13,9 @@ const {
 } = require('../queries/schedulingQueries');
 
 module.exports = (db) => {
-  router.get("/", async (req, res) => {
+  router.get("/:month_id", async (req, res) => {
     try {
+      const id = req.params.month_id
       const responseObject = {}
       const teachers = await db.query(selectAllTeachers)
       responseObject.teachers = teachers.rows
@@ -25,28 +26,25 @@ module.exports = (db) => {
       const difficulties = await db.query(selectAllDifficulties)
       responseObject.difficulties = difficulties.rows
       //this needs to be fixed
-      const classes = await db.query(selectClassesByDay, [3])
+      const classes = await db.query(selectAllClassesByMonth, [id])
       responseObject.classes = classes.rows
       res.send(responseObject);
     }
     catch (error) {
       throw error
     }
-
   });
 
-  router.get("/:month_id", async (req, res) => {
-    try {
-      const id = req.params.month_id
-      const response = await db.query(selectAllClassesByMonth, [id])
-      res.send(response.rows)
-    }
-    catch (error) {
-      throw error
-    }
-  });
-
-
+  // router.get("/:month_id", async (req, res) => {
+  //   try {
+  //     const id = req.params.month_id
+  //     const response = await db.query(selectAllClassesByMonth, [id])
+  //     res.send(response.rows)
+  //   }
+  //   catch (error) {
+  //     throw error
+  //   }
+  // });
 
   return router;
 };
