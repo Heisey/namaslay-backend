@@ -47,6 +47,11 @@ const selectAllDifficulties = `
 SELECT id, description FROM difficulties;
 `
 
+const selectClassesByDay = `
+SELECT * FROM classes
+WHERE day_id = $1;
+`
+
 module.exports = {
   selectAllTeachers,
   selectAllClassesByMonth,
@@ -54,5 +59,6 @@ module.exports = {
   selectAllDaysofMonth,
   selectAllDisciplines,
   selectAllPrograms,
-  selectAllDifficulties
+  selectAllDifficulties,
+  selectClassesByDay
 }

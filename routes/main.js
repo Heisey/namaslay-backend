@@ -8,7 +8,8 @@ const {
   selectAllTeachers,
   selectAllDisciplines,
   selectAllPrograms,
-  selectAllDifficulties
+  selectAllDifficulties,
+  selectClassesByDay
 } = require('../queries/schedulingQueries');
 
 module.exports = (db) => {
@@ -23,6 +24,9 @@ module.exports = (db) => {
       responseObject.programs = programs.rows
       const difficulties = await db.query(selectAllDifficulties)
       responseObject.difficulties = difficulties.rows
+      //this needs to be fixed
+      const classes = await db.query(selectClassesByDay, [3])
+      responseObject.classes = classes.rows
       res.send(responseObject);
     }
     catch (error) {
@@ -30,6 +34,7 @@ module.exports = (db) => {
     }
 
   });
+
 
   router.get("/:month_id", (req, res) => {
     const id = req.params.month_id
