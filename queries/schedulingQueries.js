@@ -31,8 +31,28 @@ const selectAllDaysofMonth = `
 SELECT year, monthNumber, dayNumber FROM days WHERE monthNumber = $1;
 `
 
+const selectAllTeachers = `
+SELECT id, name, bio, imageUrl FROM teachers;
+`
+
+const selectAllDisciplines = `
+SELECT id, name, description FROM disciplines;
+`
+
+const selectAllPrograms = `
+SELECT id, name, description FROM programs;
+`
+
+const selectAllDifficulties = `
+SELECT id, description FROM difficulties;
+`
+
 module.exports = {
+  selectAllTeachers,
   selectAllClassesByMonth,
   selectAllClassesByDay,
-  selectAllDaysofMonth
+  selectAllDaysofMonth,
+  selectAllDisciplines,
+  selectAllPrograms,
+  selectAllDifficulties
 }

@@ -4,13 +4,31 @@ const router = express.Router();
 const {
   selectAllClassesByMonth,
   selectAllClassesByDay,
-  selectAllDaysofMonth
+  selectAllDaysofMonth,
+  selectAllTeachers,
+  selectAllDisciplines,
+  selectAllPrograms,
+  selectAllDifficulties
 } = require('../queries/schedulingQueries');
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    console.log('hello')
-    res.send('wtf dude')
+  router.get("/", async (req, res) => {
+    try {
+      const responseObject = {}
+      const teachers = await db.query(selectAllTeachers)
+      responseObject.teachers = teachers.rows
+      const disciplines = await db.query(selectAllDisciplines)
+      responseObject.disciplines = disciplines.rows
+      const programs = await db.query(selectAllPrograms)
+      responseObject.programs = programs.rows
+      const difficulties = await db.query(selectAllDifficulties)
+      responseObject.difficulties = difficulties.rows
+      res.send(responseObject);
+    }
+    catch (error) {
+      throw error
+    }
+
   });
 
   router.get("/:month_id", (req, res) => {

@@ -8,6 +8,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const morgan = require('morgan');
+const cors = require('cors');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -16,6 +17,7 @@ const db = new Pool(dbParams);
 db.connect();
 
 app.use(morgan('dev'));
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
