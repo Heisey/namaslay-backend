@@ -27,6 +27,8 @@ module.exports = (db) => {
       responseObject.difficulties = difficulties.rows
       //this needs to be fixed
       const classes = await db.query(selectAllClassesByMonth, [id])
+      const days = await db.query(selectAllDaysofMonth, [id])
+      responseObject.days = days.rows
       responseObject.classes = classes.rows
       res.send(responseObject);
     }
