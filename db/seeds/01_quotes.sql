@@ -1,5 +1,5 @@
 /*
-db/seeds/01_disciplines.sql
+db/seeds/01_quotes.sql
 */
 
 DROP TABLE IF EXISTS quotes CASCADE;
@@ -23,3 +23,7 @@ INSERT INTO quotes (quote, author) VALUES ('Stay away from negative people. They
 INSERT INTO quotes (quote, author) VALUES ('Genius is one percent inspiration and 99% perspiration.', 'Thomas Edison');
 INSERT INTO quotes (quote, author) VALUES ('One must be sane to think clearly, but one can think deeply and be quite insane.', 'Nikola Tesla');
 INSERT INTO quotes (quote, author) VALUES ('Lose yourself to dance.', 'Daft Punk');
+INSERT INTO quotes (quote, author) VALUES ('Once you replace negative thoughts with positive ones, you''ll start having positive results.', 'Willie Nelson');
+INSERT INTO quotes (quote, author) VALUES ('If it''s flipping hamburgers at McDonald''s, be the best hamburger flipper in the world. Whatever it is you do you have to master your craft.', 'Snoop Dogg');
+INSERT INTO quotes (quote, author) VALUES ('Love the life you live. Live the life you love.', 'Bob Marley');
+

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+// ?? Routes mounted on /api
+
 const {
   selectAllClassesByMonth,
   selectAllClassesByDay,
@@ -10,7 +12,7 @@ const {
   selectAllPrograms,
   selectAllDifficulties,
   selectClassesByDay
-} = require('../queries/schedulingQueries');
+} = require('../queries/filteringQueries');
 
 module.exports = (db) => {
   router.get("/:month_id", async (req, res) => {
@@ -36,17 +38,6 @@ module.exports = (db) => {
       throw error
     }
   });
-
-  // router.get("/:month_id", async (req, res) => {
-  //   try {
-  //     const id = req.params.month_id
-  //     const response = await db.query(selectAllClassesByMonth, [id])
-  //     res.send(response.rows)
-  //   }
-  //   catch (error) {
-  //     throw error
-  //   }
-  // });
 
   return router;
 };
