@@ -32,12 +32,7 @@ INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, di
 INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (4, 'Energize Your Body & Mind 4', 5, 10, 1, 'All Levels', 24);
 INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (4, 'Energize Your Body & Mind 5', 5, 10, 1, 'All Levels', 31);
 
-/*Noon*/
-INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (1, 'Prenatal Wellness 1', 6, 12, 2, 'Prenatal', 3);
-INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (1, 'Prenatal Wellness 2', 6, 12, 2, 'Prenatal', 10);
-INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (1, 'Prenatal Wellness 3', 6, 12, 2, 'Prenatal', 17);
-INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (1, 'Prenatal Wellness 4', 6, 12, 2, 'Prenatal', 24);
-INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (1, 'Prenatal Wellness 5', 6, 12, 2, 'Prenatal', 31);
+/*Noon closed*/
 
 /*2pm non-program*/
 INSERT INTO classes (teacher_id, name, program_id, start_time, discipline_id, difficulty, day_id) VALUES (2, 'Afternoon Hatha', null, 14, 1, 'All Levels', 3);
