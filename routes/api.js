@@ -30,8 +30,7 @@ module.exports = (db) => {
       //this needs to be fixed
       const classes = await db.query(selectAllClassesByMonth, [id])
       const days = await db.query(selectAllDaysofMonth, [id])
-      responseObject.days = days.rows
-      responseObject.classes = classes.rows
+      responseObject.days = days.row
       res.send(responseObject);
     }
     catch (error) {

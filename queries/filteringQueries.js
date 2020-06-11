@@ -1,5 +1,5 @@
 const selectAllClassesByMonth = `
-SELECT * FROM classes
+SELECT classes.id, teacher_id, name, program_id, start_time, spotsavailable, discipline_id, difficulty, day_id, year, monthNumber, dayNumber FROM classes
 JOIN days ON days.id = day_id
 WHERE monthNumber = $1
 `
