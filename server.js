@@ -23,11 +23,11 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 const apiRoutes = require("./routes/api");
-const crudRoutes = require("./routes/crud");
+const classesRoutes = require("./routes/classes");
 
 // Mount all resource routes
 app.use("/api", apiRoutes(db));
-app.use("/classes", crudRoutes(db));
+app.use("/classes", classesRoutes(db));
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

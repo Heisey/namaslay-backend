@@ -5,29 +5,28 @@ const router = express.Router();
 
 const {
   updateClassSpots,
-  getClassSpots
+  getClassSpots,
 } = require('../queries/bookingQueries');
 
 module.exports = (db) => {
-
   //going to need to add student_id param & turn this into sessions once we have students
   router.post('/:class_id/book', async (req, res) => {
     const id = req.params.class_id
-
     try {
-      let response = await db.query(getClassSpots, [id])
-      let spots = response.rows[0].spotsavailable
+      console.log('------------------');
+      const initSpotsRes = await db.query(getClassSpots, [id])
+      let spots = initSpotsRes.rows[0].spotsavailable
       console.log('initial spots:', spots);
-      spots--
-      console.log('new spots:', spots);
-      response = await db.query(updateClassSpots, 23, 10)
-      console.log('hello');
-
-      // response = await db.query(getClassSpots, [id])
-      // console.log(response.rows[0].spotsavailable);
-
-      // spots = response.rows[0].spotsavailable
-      // console.log('updated spots:', spots);
+      if (spots === 0) {
+        res.send({ message: 'failed' });
+      } else {
+        spots--
+        await db.query(updateClassSpots, [spots, id])
+        response = await db.query(getClassSpots, [id])
+        spots = response.rows[0].spotsavailable
+        console.log('updated spots from db:', spots);
+        res.send({ message: 'success' });
+      }
     }
     catch (error) {
       throw error
@@ -37,18 +36,21 @@ module.exports = (db) => {
   router.post('/:class_id/cancel', async (req, res) => {
     const id = req.params.class_id
     try {
+      console.log('------------------');
       let response = await db.query(getClassSpots, [id])
       let spots = response.rows[0].spotsavailable
       console.log('initial spots:', spots);
       spots++
-      await db.query(updateClassSpots, [spots], [id])
+      await db.query(updateClassSpots, [spots, id])
       response = await db.query(getClassSpots, [id])
       spots = response.rows[0].spotsavailable
-      console.log('updated spots:', spots);
+      console.log('updated spots from db:', spots);
+      res.send({ message: 'success' });
     }
     catch (e) {
       throw e
     }
   })
+
   return router;
 }

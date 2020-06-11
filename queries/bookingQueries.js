@@ -1,6 +1,6 @@
 const updateClassSpots = `
 UPDATE classes
-SET spotsAvailable = $1
+SET spotsavailable = $1
 WHERE id = $2;
 `
 
