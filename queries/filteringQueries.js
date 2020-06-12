@@ -4,6 +4,12 @@ JOIN days ON days.id = day_id
 WHERE monthNumber = $1
 `
 
+const getRandomQuote = `
+SELECT * FROM quotes
+WHERE id = $1
+LIMIT 1;
+`
+
 const selectAllClassesByDay = `
 SELECT classes.id, classes.name, program_id, start_time, spotsAvailable, teacher_id, discipline_id, classes.difficulty
 FROM classes
@@ -36,6 +42,10 @@ SELECT * FROM classes
 WHERE day_id = $1;
 `
 
+const getNumberOfQuotes = `
+select count(*) from quotes
+`
+
 module.exports = {
   selectAllTeachers,
   selectAllClassesByMonth,
@@ -44,5 +54,7 @@ module.exports = {
   selectAllDisciplines,
   selectAllPrograms,
   selectAllDifficulties,
-  selectClassesByDay
+  selectClassesByDay,
+  getRandomQuote,
+  getNumberOfQuotes
 }
