@@ -13,11 +13,7 @@ module.exports = (db) => {
   router.post('/login', async (req, res) => {
     try {
       const password = req.body.password
-      console.log(password);
-
       const email = req.body.email
-      console.log(email);
-
       let responseObject = await db.query(getStudentInfo, [email])
       const data = responseObject.rows[0];
       if (responseObject.rows.length && data.password === password) {
@@ -25,7 +21,7 @@ module.exports = (db) => {
         res.send(responseObject)
       }
       else {
-        res.send({ status: 'failed because password' })
+        res.send({ status: 'failed' })
       }
     }
     catch (error) {
