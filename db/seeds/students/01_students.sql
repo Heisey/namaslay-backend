@@ -20,6 +20,12 @@ CREATE TABLE passes (
 -- single, 5-pack, 25-pack, monthly
 
 INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 5);
+INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 0);
+INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 0);
+INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 0);
+INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 0);
+INSERT INTO passes (type, student_id, sessions_remaining)VALUES ('5-pack', 1, 0);
+
 
 CREATE TABLE sessions (
   id SERIAL PRIMARY KEY NOT NULL,

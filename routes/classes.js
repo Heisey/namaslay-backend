@@ -9,7 +9,7 @@ const {
 } = require('../queries/bookingQueries');
 
 module.exports = (db) => {
-  //going to need to add student_id param & turn this into sessions once we have students
+  //going to need to add student_id to request body and decrement passes (set to null if 0); do a check if monthly to see if today > expiration date (or if we can figure out how to passively set this to null once the date passes. Daily setTimout?)
 
   router.post('/:class_id/book', async (req, res) => {
 
@@ -31,6 +31,7 @@ module.exports = (db) => {
       }
     }
     catch (err) {
+      res.send({ status: 'failed' })
       err
     }
   })
@@ -50,6 +51,7 @@ module.exports = (db) => {
       res.send({ message: 'success' });
     }
     catch (e) {
+      res.send({ status: 'failed' })
       throw e
     }
   })
