@@ -7,6 +7,7 @@ CREATE TABLE students (
 );
 
 INSERT INTO students (first_name, last_name, email, password) VALUES ('Astro', 'Domine', 'piper@thegatesofdawn.com', 'password');
+INSERT INTO students (first_name, last_name, email, password) VALUES ('Nicole', 'Ticknor', 'ticknor.nicole@gmail.com', 'password');
 
 CREATE TABLE passes (
   id SERIAL PRIMARY KEY NOT NULL,
