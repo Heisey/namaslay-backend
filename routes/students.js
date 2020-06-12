@@ -30,10 +30,29 @@ module.exports = (db) => {
     }
   });
 
+  router.get('/:student_id/passes', async (req, res) => {
+    try {
+      const id = req.params.student_id
+      const passes = await db.query(getStudentPasses, [id])
+      const passCount = passes.rows.reduce((acc, pass) => {
+        return acc + pass.sessions_remaining
+      }, 0)
+      res.send({ passCount });
+    }
+    catch (err) {
+      throw err
+    }
+  })
+
+
   router.post('/:student_id/passes', async (req, res) => {
     try {
       const type = req.body.type
       const id = req.params.student_id
+
+      if (!type) {
+        res.send({ status: 'failed' })
+      }
 
       function getExpiration() {
         let expiration;
@@ -69,22 +88,18 @@ module.exports = (db) => {
 
       let responseObj = await db.query(getStudentPassesCount, [id, limit])
       const initPassCount = responseObj.rows[0].count
-      console.log(initPassCount);
-
       await db.query(createPassPurchase, [type, id, limit])
 
       responseObj = await db.query(getStudentPassesCount, [id, limit])
       const updatedPassCount = responseObj.rows[0].count
-      console.log(updatedPassCount);
-
       if (Number(updatedPassCount) === Number(initPassCount) + 1) {
-        res.send({ status: 'success' })
+        res.send({ status: 'success', updatedPassCount })
       } else {
         res.send({ status: 'failed' })
       }
     }
     catch (error) {
-      res.send({ status: 'failed error' })
+      res.send({ status: 'failed' })
       throw error
     }
   });
