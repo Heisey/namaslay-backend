@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+// const dotenv = require('dotenv');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const { getStudentInfo,
   getStudentPasses,
@@ -8,18 +10,22 @@ const { getStudentInfo,
 
 module.exports = (db) => {
 
-  router.post('/:student_id/login', async (req, res) => {
+  router.post('/login', async (req, res) => {
     try {
       const password = req.body.password
+      console.log(password);
+
       const email = req.body.email
-      let responseObject = await db.query(getStudentInfo, ["piper@thegatesofdawn.com"])
+      console.log(email);
+
+      let responseObject = await db.query(getStudentInfo, [email])
       const data = responseObject.rows[0];
       if (responseObject.rows.length && data.password === password) {
         responseObject = { status: 'success', data }
         res.send(responseObject)
       }
       else {
-        res.send({ status: 'failed' })
+        res.send({ status: 'failed because password' })
       }
     }
     catch (error) {
@@ -86,6 +92,16 @@ module.exports = (db) => {
       throw error
     }
   });
+
+  router.get('/:student_id/secret', async (req, res) => {
+    const intent = await stripe.paymentIntents.create({
+      amount: 1099,
+      currency: 'cad',
+      metadata: { integration_check: 'accept_a_payment' }
+    });
+
+    res.json({ client_secret: intent.client_secret });
+  })
 
   return router;
 }
