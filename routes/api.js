@@ -11,10 +11,29 @@ const {
   selectAllDisciplines,
   selectAllPrograms,
   selectAllDifficulties,
-  selectClassesByDay
+  selectClassesByDay,
+  getRandomQuote,
+  getNumberOfQuotes
 } = require('../queries/filteringQueries');
 
 module.exports = (db) => {
+
+  router.get('/quote', async (req, res) => {
+    try {
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      const quoteCountResponse = await db.query(getNumberOfQuotes)
+      const quoteCount = Number(quoteCountResponse.rows[0].count)
+      const randomQuoteID = getRandomInt(quoteCount)
+      const quote = await db.query(getRandomQuote, [randomQuoteID])
+      res.send(quote.rows)
+    }
+    catch (error) {
+      throw error
+    }
+  })
+
   router.get("/:month_id", async (req, res) => {
     try {
       const id = req.params.month_id
