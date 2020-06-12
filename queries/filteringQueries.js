@@ -20,15 +20,15 @@ SELECT id, name, bio, imageUrl FROM teachers;
 `
 
 const selectAllDisciplines = `
-SELECT id, name, description FROM disciplines;
+SELECT id, name, description, imageUrl FROM disciplines;
 `
 
 const selectAllPrograms = `
-SELECT id, name, description FROM programs;
+SELECT id, name, description, imageUrl FROM programs;
 `
 
 const selectAllDifficulties = `
-SELECT id, description FROM difficulties;
+SELECT id, description, imageUrl FROM difficulties;
 `
 
 const selectClassesByDay = `
