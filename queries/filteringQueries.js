@@ -1,21 +1,13 @@
-/*const selectAllStories = `
-SELECT content, title, genres.name, users.name, to_char(AVG (rating),'9D9') AS average_rating
-FROM stories
-JOIN story_ratings ON story_ratings.story_id = stories.id
-JOIN story_genres ON story_genres.story_id = stories.id
-JOIN genres ON genre_id = genres.id
-JOIN users ON author_id = users.id
-GROUP BY content, title, genres.name, users.name
-LIMIT $1;
-`
-
-*/
-
-
 const selectAllClassesByMonth = `
-SELECT * FROM classes
+SELECT classes.id, teacher_id, name, program_id, start_time, spotsavailable, discipline_id, difficulty, day_id, year, monthNumber, dayNumber FROM classes
 JOIN days ON days.id = day_id
 WHERE monthNumber = $1
+`
+
+const getRandomQuote = `
+SELECT * FROM quotes
+WHERE id = $1
+LIMIT 1;
 `
 
 const selectAllClassesByDay = `
@@ -26,7 +18,7 @@ WHERE dayNumber = $1;
 `
 
 const selectAllDaysofMonth = `
-SELECT year, monthNumber, dayNumber FROM days WHERE monthNumber = $1;
+SELECT * FROM days WHERE monthNumber = $1;
 `
 
 const selectAllTeachers = `
@@ -34,20 +26,24 @@ SELECT id, name, bio, imageUrl FROM teachers;
 `
 
 const selectAllDisciplines = `
-SELECT id, name, description FROM disciplines;
+SELECT id, name, description, imageUrl FROM disciplines;
 `
 
 const selectAllPrograms = `
-SELECT id, name, description FROM programs;
+SELECT id, name, description, imageUrl FROM programs;
 `
 
 const selectAllDifficulties = `
-SELECT id, description FROM difficulties;
+SELECT id, description, imageUrl FROM difficulties;
 `
 
 const selectClassesByDay = `
 SELECT * FROM classes
 WHERE day_id = $1;
+`
+
+const getNumberOfQuotes = `
+select count(*) from quotes
 `
 
 module.exports = {
@@ -58,5 +54,7 @@ module.exports = {
   selectAllDisciplines,
   selectAllPrograms,
   selectAllDifficulties,
-  selectClassesByDay
+  selectClassesByDay,
+  getRandomQuote,
+  getNumberOfQuotes
 }

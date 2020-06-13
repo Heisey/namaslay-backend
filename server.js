@@ -26,10 +26,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-const mainRoutes = require("./routes/main");
+const apiRoutes = require("./routes/api");
+const classesRoutes = require("./routes/classes");
+const studentsRoutes = require("./routes/students");
 
 // Mount all resource routes
-app.use("/api", mainRoutes(db));
+app.use("/api", apiRoutes(db));
+app.use("/classes", classesRoutes(db));
+app.use("/students", studentsRoutes(db));
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

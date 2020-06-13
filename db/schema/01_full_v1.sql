@@ -16,7 +16,9 @@ DROP TABLE IF EXISTS sessions CASCADE;
 
 CREATE TABLE students (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255)
+  name VARCHAR(255),
+  email VARCHAR(255),
+  password VARCHAR(255)
 );
 
 CREATE TABLE teachers (
