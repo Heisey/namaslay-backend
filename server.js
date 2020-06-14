@@ -1,5 +1,12 @@
+
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+
+
 // load .env data into process.env
-require('dotenv').config();
+// require('dotenv').config();
+console.log('env vars')
+// console.log(process.env)
 
 // Web server config
 const PORT = 4000;
@@ -18,7 +25,6 @@ console.log(dbParams)
 
 const db = new Pool(dbParams);
 db.connect();
-
 
 app.use(morgan('dev'));
 app.use(cors())
