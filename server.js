@@ -1,5 +1,12 @@
+
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
+
+
 // load .env data into process.env
-require('dotenv').config();
+// require('dotenv').config();
+console.log('env vars')
+// console.log(process.env)
 
 // Web server config
 const PORT = 4000;
@@ -13,6 +20,9 @@ const cors = require('cors');
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
+
+console.log(dbParams)
+
 const db = new Pool(dbParams);
 db.connect();
 
