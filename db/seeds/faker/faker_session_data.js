@@ -22,6 +22,7 @@ const generateDays = () => {
       days = 30
     }
     for (let d = 1; d <= days; d++) {
+
       statement.push({
         id: dayID,
         year: 2019,
