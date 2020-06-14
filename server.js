@@ -36,11 +36,13 @@ const apiRoutes = require("./routes/api");
 const classesRoutes = require("./routes/classes");
 const studentsRoutes = require("./routes/students");
 const userDataRoutes = require("./routes/userData");
+const testRoutes = require("./routes/test");
 
 // Mount all resource routes
 app.use("/api", apiRoutes(db));
 app.use("/classes", classesRoutes(db));
 app.use("/students", studentsRoutes(db));
+app.use("/test", testRoutes(db));
 app.use("/userdata", userDataRoutes(db));
 
 app.listen(PORT, () => {

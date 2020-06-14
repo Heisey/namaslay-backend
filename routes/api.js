@@ -53,7 +53,10 @@ module.exports = (db) => {
 
       responseObject.classes = classes.rows
 
-      res.send(responseObject);
+      setTimeout(() => {
+        res.send(responseObject);
+      }, 10000);
+
     }
     catch (error) {
       throw error

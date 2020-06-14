@@ -10,6 +10,8 @@ module.exports = (db) => {
       const id = req.params.student_id
       let response = await db.query(getAllClasses, [id])
       const allClasses = response.rows
+      console.log(allClasses);
+
       response = await db.query(getTopClasses, [id])
       const topClasses = response.rows
       const responseObject = { allClasses, topClasses }

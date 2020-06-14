@@ -56,7 +56,8 @@ module.exports = (db) => {
       const id = req.params.student_id
 
       if (!type) {
-        res.send({ status: 'failed' })
+        res.send({ status: 'failed no type' })
+        return
       }
 
       function getExpiration() {
@@ -100,11 +101,11 @@ module.exports = (db) => {
       if (Number(updatedPassCount) === Number(initPassCount) + 1) {
         res.send({ status: 'success', updatedPassCount })
       } else {
-        res.send({ status: 'failed' })
+        res.send({ status: 'failed db' })
       }
     }
     catch (error) {
-      res.send({ status: 'failed' })
+      res.send({ status: 'failed error' })
       throw error
     }
   });
