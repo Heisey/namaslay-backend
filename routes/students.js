@@ -15,7 +15,12 @@ module.exports = (db) => {
       const email = req.body.email
       let responseObject = await db.query(getStudentInfo, [email])
       const data = responseObject.rows[0];
+      const id = data.id
+      console.log(id);
+
       if (responseObject.rows.length && data.password === password) {
+        console.log('hello');
+
         const passes = await db.query(getStudentPasses, [id])
         const passCount = passes.rows.reduce((acc, pass) => {
           return acc + pass.sessions_remaining
