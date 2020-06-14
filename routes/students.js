@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const dotenv = require('dotenv');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const { getStudentInfo,
@@ -16,7 +15,13 @@ module.exports = (db) => {
       const email = req.body.email
       let responseObject = await db.query(getStudentInfo, [email])
       const data = responseObject.rows[0];
+      const id = data.id
       if (responseObject.rows.length && data.password === password) {
+        const passes = await db.query(getStudentPasses, [id])
+        const passCount = passes.rows.reduce((acc, pass) => {
+          return acc + pass.sessions_remaining
+        }, 0)
+        data.passCount = passCount
         responseObject = { status: 'success', data }
         res.send(responseObject)
       }
@@ -104,7 +109,7 @@ module.exports = (db) => {
     }
   });
 
-  router.get('/:student_id/secret', async (req, res) => {
+  router.get('/:student_id/passes/purchase', async (req, res) => {
     const intent = await stripe.paymentIntents.create({
       amount: 1099,
       currency: 'cad',
