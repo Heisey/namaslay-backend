@@ -23,7 +23,10 @@ module.exports = (db) => {
         }, 0)
         data.passCount = passCount
         responseObject = { status: 'success', data }
-        res.send(responseObject)
+        setTimeout(() => {
+          res.send(responseObject)
+        }, 10000);
+
       }
       else {
         res.send({ status: 'failed' })

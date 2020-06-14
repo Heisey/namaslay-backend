@@ -25,8 +25,10 @@ module.exports = (db) => {
       }
       const quoteCountResponse = await db.query(getNumberOfQuotes)
       const quoteCount = Number(quoteCountResponse.rows[0].count)
-      const randomQuoteID = getRandomInt(quoteCount)
+      const randomQuoteID = getRandomInt(quoteCount - 1)
       const quote = await db.query(getRandomQuote, [randomQuoteID])
+      console.log(quote.rows);
+
       res.send(quote.rows)
     }
     catch (error) {
