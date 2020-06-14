@@ -35,11 +35,13 @@ app.use(express.static("public"));
 const apiRoutes = require("./routes/api");
 const classesRoutes = require("./routes/classes");
 const studentsRoutes = require("./routes/students");
+const userDataRoutes = require("./routes/userData");
 
 // Mount all resource routes
 app.use("/api", apiRoutes(db));
 app.use("/classes", classesRoutes(db));
 app.use("/students", studentsRoutes(db));
+app.use("/userdata", userDataRoutes(db));
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
