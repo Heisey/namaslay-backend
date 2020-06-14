@@ -16,16 +16,13 @@ module.exports = (db) => {
       let responseObject = await db.query(getStudentInfo, [email])
       const data = responseObject.rows[0];
       const id = data.id
-      console.log(id);
-
       if (responseObject.rows.length && data.password === password) {
-        console.log('hello');
-
         const passes = await db.query(getStudentPasses, [id])
         const passCount = passes.rows.reduce((acc, pass) => {
           return acc + pass.sessions_remaining
         }, 0)
-        responseObject = { status: 'success', data, passCount }
+        data.passCount = passCount
+        responseObject = { status: 'success', data }
         res.send(responseObject)
       }
       else {
