@@ -21,14 +21,12 @@ module.exports = (db) => {
   router.get('/quote', async (req, res) => {
     try {
       function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
+        return Math.floor(Math.random() * Math.floor(max) + 1);
       }
       const quoteCountResponse = await db.query(getNumberOfQuotes)
       const quoteCount = Number(quoteCountResponse.rows[0].count)
       const randomQuoteID = getRandomInt(quoteCount - 1)
       const quote = await db.query(getRandomQuote, [randomQuoteID])
-      console.log(quote.rows);
-
       res.send(quote.rows)
     }
     catch (error) {
@@ -48,16 +46,14 @@ module.exports = (db) => {
       responseObject.programs = programs.rows
       const difficulties = await db.query(selectAllDifficulties)
       responseObject.difficulties = difficulties.rows
-      //this needs to be fixed
+
       const classes = await db.query(selectAllClassesByMonth, [id])
       const days = await db.query(selectAllDaysofMonth, [id])
       responseObject.daysLegend = days.rows
 
       responseObject.classes = classes.rows
+      res.send(responseObject);
 
-      setTimeout(() => {
-        res.send(responseObject);
-      }, 10000);
 
     }
     catch (error) {
