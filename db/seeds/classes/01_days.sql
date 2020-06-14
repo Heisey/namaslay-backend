@@ -7,8 +7,7 @@ CREATE TABLE days (
   id SERIAL PRIMARY KEY NOT NULL,
   year INTEGER,
   monthNumber INTEGER,
-  dayNumber INTEGER,
-  weekDay VARCHAR(255)
+  dayNumber INTEGER
 );
 
 INSERT INTO days (year, monthNumber, dayNumber) VALUES (2020, 6, 1);
