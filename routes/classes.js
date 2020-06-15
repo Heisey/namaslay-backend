@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path')
 const nodemailer = require('nodemailer')
-const { makeID, getImage, sendEmail } = require('../helpers/routerFunctions')
+const { getImage, sendEmail } = require('../helpers/routerFunctions')
 
 // ?? Routes mounted on /classes
 
