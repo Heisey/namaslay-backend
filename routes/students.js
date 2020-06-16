@@ -25,7 +25,7 @@ module.exports = (db) => {
         responseObject = { status: 'success', data }
         setTimeout(() => {
           res.send(responseObject)
-        }, 10000);
+        }, 1500);
 
       }
       else {

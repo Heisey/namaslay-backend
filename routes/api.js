@@ -46,15 +46,14 @@ module.exports = (db) => {
       responseObject.programs = programs.rows
       const difficulties = await db.query(selectAllDifficulties)
       responseObject.difficulties = difficulties.rows
-
       const classes = await db.query(selectAllClassesByMonth, [id])
       const days = await db.query(selectAllDaysofMonth, [id])
       responseObject.daysLegend = days.rows
-
       responseObject.classes = classes.rows
-      res.send(responseObject);
 
-
+      setTimeout(() => {
+        res.send(responseObject);
+      }, 1500);
     }
     catch (error) {
       throw error

@@ -22,19 +22,19 @@ SELECT * FROM days WHERE monthNumber = $1;
 `
 
 const selectAllTeachers = `
-SELECT id, name, bio, imageUrl FROM teachers;
+SELECT id, name, bio, imageurlsquare, imageurlcutout FROM teachers;
 `
 
 const selectAllDisciplines = `
-SELECT id, name, description, imageUrl FROM disciplines;
+SELECT id, name, description, imageurlsquare, imageurlcutout FROM disciplines;
 `
 
 const selectAllPrograms = `
-SELECT id, name, description, imageUrl FROM programs;
+SELECT id, name, description, imageurlsquare, imageurlcutout FROM programs;
 `
 
 const selectAllDifficulties = `
-SELECT id, description, imageUrl FROM difficulties;
+SELECT id, description, imageurlsquare, imageurlcutout FROM difficulties;
 `
 
 const selectClassesByDay = `
