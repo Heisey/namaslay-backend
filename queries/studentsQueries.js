@@ -23,7 +23,6 @@ select distinct teachers.name as teacher, classes.name as name, start_time, dayn
 join days on days.id = day_id
 join sessions on class_id = classes.id
 join students on sessions.student_id = students.id
-join passes on passes.student_id = students.id
 join teachers on teacher_id = teachers.id
 join disciplines on disciplines.id = discipline_id
 join programs on program_id = programs.id
