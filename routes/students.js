@@ -100,29 +100,25 @@ module.exports = (db) => {
 
       const limit = getSessionsRemaining(type)
 
-      // ?? get the updated Pass Count
-      let responseObj = await db.query(getStudentPassesCount, [id, limit])
-      const initPassCount = responseObj.rows[0].count
+      // ?? purchase a pass
       await db.query(createPassPurchase, [type, id, limit])
 
-      responseObj = await db.query(getStudentPassesCount, [id, limit])
-      const updatedPassCount = responseObj.rows[0].count
+      // ?? get the updated Pass Count
+      const passes = await db.query(getStudentPasses, [id])
+      const updatedPassCount = passes.rows.reduce((acc, pass) => {
+        return acc + pass.sessions_remaining
+      }, 0)
 
-      // ?? make sure it actually updated
-      if (Number(updatedPassCount) === Number(initPassCount) + 1) {
+      // ?? process the stripe payment
+      const intent = await stripe.paymentIntents.create({
+        amount: 1099,
+        currency: 'cad',
+        metadata: { integration_check: 'accept_a_payment' }
+      });
 
-        // ?? process the stripe payment
-        const intent = await stripe.paymentIntents.create({
-          amount: 1099,
-          currency: 'cad',
-          metadata: { integration_check: 'accept_a_payment' }
-        });
+      // ?? send back the data
+      res.send({ status: 'success', updatedPassCount, client_secret: intent.client_secret })
 
-        // ?? send back the data
-        res.send({ status: 'success', updatedPassCount, client_secret: intent.client_secret })
-      } else {
-        res.send({ status: 'failed db' })
-      }
     }
     catch (error) {
       res.send({ status: 'failed error' })
