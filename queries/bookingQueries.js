@@ -12,8 +12,13 @@ const getClassName = `
 SELECT name FROM classes WHERE id = $1;
 `
 
+const getClassDetails = `
+SELECT * from classes WHERE id = $1;
+`
+
 module.exports = {
   updateClassSpots,
   getClassSpots,
-  getClassName
+  getClassName,
+  getClassDetails
 };

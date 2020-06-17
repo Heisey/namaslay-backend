@@ -79,8 +79,45 @@ const sendEmail = (classname, filepath) => {
   return main();
 }
 
+function getExpiration() {
+  let expiration;
+  const dateToday = new Date()
+  let day = dateToday.getDate()
+  let month = dateToday.getMonth() + 1
+  let year = dateToday.getFullYear()
+  if (month !== 12) {
+    expiration = [month + 1, day, year]
+  } else {
+    expiration = [1, day, year + 1]
+  }
+  return expiration
+}
+
+function getSessionsRemaining(type) {
+  let limit;
+  switch (type) {
+    case 'single':
+      limit = 1;
+      break;
+    case '5-pack':
+      limit = 5;
+      break;
+    case '25-pack':
+      limit = 25
+      break;
+    case 'monthly':
+      limit = getExpiration();
+      break;
+    default:
+      limit = 1;
+  }
+  return limit;
+}
+
+
 module.exports = {
   makeID,
   getImage,
-  sendEmail
+  sendEmail,
+  getSessionsRemaining
 }
