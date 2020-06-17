@@ -1,7 +1,7 @@
 require('dotenv').config();
 const faker = require('faker');
 const { Pool } = require('pg');
-const dbParams = require('../../../lib/db.js');
+const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
 
 function getRandomInt(max, start) {
@@ -115,21 +115,65 @@ const generateClasses = () => {
     ['Optimal Back Health', 3, 'Intermediate', 3]
   ]
 
-  for (let i = 1000; i <= 1080; i++) {
-    let cl = classNames[getRandomInt(classNames.length - 1, 0)]
-    let obj = {
-      id: i,
-      teacher_id: getRandomInt(9, 1),
-      name: cl[0],
-      program_id: cl[1],
-      start_time: getRandomInt(20 - 8, 8),
-      spotsavailable: getRandomInt(20, 1),
-      discipline_id: cl[3],
-      difficulty: cl[2],
-      day_id: getRandomInt(1516 - 1000, 1000)
-    }
-    statement.push(obj)
+  // for (let i = 1000; i <= 1080; i++) {
+  //   let cl = classNames[getRandomInt(classNames.length - 1, 0)]
+  //   let obj = {
+  //     id: i,
+  //     teacher_id: getRandomInt(9, 1),
+  //     name: cl[0],
+  //     program_id: cl[1],
+  //     start_time: getRandomInt(20 - 8, 8),
+  //     spotsavailable: getRandomInt(20, 1),
+  //     discipline_id: cl[3],
+  //     difficulty: cl[2],
+  //     day_id: getRandomInt(1516 - 1000, 1000)
+  //   }
+  //   statement.push(obj)
+  // }
+
+  // need january 2020 data
+  // for (let i = 1081; i <= 1085; i++) {
+  let cl = classNames[getRandomInt(classNames.length - 1, 0)]
+  //   let obj = {
+  //     id: i,
+  //     teacher_id: getRandomInt(9, 1),
+  //     name: cl[0],
+  //     program_id: cl[1],
+  //     start_time: getRandomInt(20 - 8, 8),
+  //     spotsavailable: getRandomInt(20, 1),
+  //     discipline_id: cl[3],
+  //     difficulty: cl[2],
+  //     day_id: getRandomInt(1395 - 1365, 1395)
+  //   }
+  //   statement.push(obj)
+  // }
+
+  //need two feb classes
+  let obj1 = {
+    id: 1086,
+    teacher_id: getRandomInt(9, 1),
+    name: cl[0],
+    program_id: cl[1],
+    start_time: getRandomInt(20 - 8, 8),
+    spotsavailable: getRandomInt(20, 1),
+    discipline_id: cl[3],
+    difficulty: cl[2],
+    day_id: getRandomInt(1058 - 1031, 1031)
   }
+  statement.push(obj1)
+
+  let obj2 = {
+    id: 1087,
+    teacher_id: getRandomInt(9, 1),
+    name: cl[0],
+    program_id: cl[1],
+    start_time: getRandomInt(20 - 8, 8),
+    spotsavailable: getRandomInt(20, 1),
+    discipline_id: cl[3],
+    difficulty: cl[2],
+    day_id: getRandomInt(1058 - 1031, 1031)
+  }
+  statement.push(obj2)
   return statement;
 }
 // const classesAry = generateClasses();
@@ -185,7 +229,6 @@ const prepSessions = () => {
   //   }
   //   sessions.push(obj)
   // }
-
 
   //past sessions April and May
 
@@ -253,9 +296,62 @@ const prepSessions = () => {
   // }
   // sessions.push(obj9)
 
+  // January classes
+  // let obj1 = {
+  //   id: 109,
+  //   student_id: 1,
+  //   class_id: 1081,
+  //   status: 'complete',
+  // }
+  // sessions.push(obj1)
+  // let obj2 = {
+  //   id: 110,
+  //   student_id: 1,
+  //   class_id: 1082,
+  //   status: 'complete',
+  // }
+  // sessions.push(obj2)
+  // let obj3 = {
+  //   id: 111,
+  //   student_id: 1,
+  //   class_id: 1083,
+  //   status: 'complete',
+  // }
+  // sessions.push(obj3)
+  // let obj4 = {
+  //   id: 112,
+  //   student_id: 1,
+  //   class_id: 1084,
+  //   status: 'complete',
+  // }
+  // sessions.push(obj4)
+  // let obj5 = {
+  //   id: 113,
+  //   student_id: 1,
+  //   class_id: 1085,
+  //   status: 'complete',
+  // }
+  // sessions.push(obj5)
+
+  //feb 2019 classes
+  let obj1 = {
+    id: 114,
+    student_id: 1,
+    class_id: 1086,
+    status: 'complete',
+  }
+  sessions.push(obj1)
+  let obj2 = {
+    id: 115,
+    student_id: 1,
+    class_id: 1087,
+    status: 'complete',
+  }
+  sessions.push(obj2)
+
   return sessions
 }
-const sessionsAry = prepSessions()
+// const sessionsAry = prepSessions()
 const insertSessions = (data) => {
   const statement = `INSERT INTO sessions(id, student_id, class_id, status) VALUES `;
   let values = '';
@@ -291,8 +387,8 @@ db.connect()
   .then(db => {
     console.log("Connected to DB...");
     // db.query(ob1.statement + ob1.values);
-    // db.query(ob2.statement + ob2.values);
-    // db.query(ob3.statement + ob3.values);
+    db.query(ob2.statement + ob2.values);
+    db.query(ob3.statement + ob3.values);
   }).catch(err => {
     console.log(err);
   });
