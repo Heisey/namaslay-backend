@@ -68,8 +68,8 @@ module.exports = (db) => {
 
         // ?? email confirmation/qr
 
-        // await getImage(className, filePath)
-        // await sendEmail(className, filePath)
+        await getImage(className, filePath)
+        await sendEmail(className, filePath)
 
         // ?? process stripe payment
 
@@ -87,7 +87,6 @@ module.exports = (db) => {
 
     }
   })
-
 
   router.post('/:class_id/cancel', async (req, res) => {
     const class_id = req.body.class_id;
