@@ -33,7 +33,6 @@ where student_id = $1 and status = 'complete'
 group by monthNumber, classes.name, year, days.id, disciplines.name, teachers.name, programs.name
 order by year, monthNumber;
 `
-
 module.exports = {
   getTopClasses,
   getTopClassesByYear,
