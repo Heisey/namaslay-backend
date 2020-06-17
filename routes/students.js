@@ -5,13 +5,13 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { getStudentInfo,
   getStudentPasses,
   createPassPurchase,
+  getUpcomingClasses,
   getStudentPassesCount } = require('../queries/studentsQueries');
 
 const { getSessionsRemaining } = require('../helpers/routerFunctions')
 
 module.exports = (db) => {
 
-  // !! update to provide sessiondata
   router.post('/login', async (req, res) => {
     try {
       const password = req.body.password
@@ -48,6 +48,28 @@ module.exports = (db) => {
     catch (error) {
       res.send({ status: 'failed' })
       throw error
+    }
+  });
+
+  router.get('/:student_id', async (req, res) => {
+    try {
+      const id = req.params.student_id
+
+      // ?? get pass data and latest passCount
+      let response = await db.query(getStudentPasses, [id])
+      const passes = response.rows
+      const passCount = response.rows.reduce((acc, pass) => {
+        return acc + pass.sessions_remaining
+      }, 0)
+
+      // ?? upcoming classes
+      response = await db.query(getUpcomingClasses, [id])
+      classSessions = response.rows
+
+      res.send({ status: 'success', passes, passCount, classSessions });
+    }
+    catch (err) {
+      throw err
     }
   });
 
@@ -107,16 +129,6 @@ module.exports = (db) => {
       throw error
     }
   });
-
-  // router.get('/:student_id/passes/purchase', async (req, res) => {
-  //   const intent = await stripe.paymentIntents.create({
-  //     amount: 1099,
-  //     currency: 'cad',
-  //     metadata: { integration_check: 'accept_a_payment' }
-  //   });
-
-  //   res.json({ client_secret: intent.client_secret });
-  // })
 
   return router;
 }
