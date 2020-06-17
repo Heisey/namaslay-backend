@@ -31,9 +31,8 @@ join sessions on classes.id = class_id
 join students on students.id = student_id
 where student_id = $1 and status = 'complete'
 group by monthNumber, classes.name, year, days.id, disciplines.name, teachers.name, programs.name
-order by monthNumber, year
+order by year, monthNumber;
 `
-
 module.exports = {
   getTopClasses,
   getTopClassesByYear,
